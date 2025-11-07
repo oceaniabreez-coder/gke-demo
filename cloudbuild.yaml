@@ -20,5 +20,5 @@ steps:
 images:
   - 'gcr.io/myfirstproject-da984/project001:latest'
 
-Options:
+options:
     logging: CLOUD_LOGGING_ONLY
