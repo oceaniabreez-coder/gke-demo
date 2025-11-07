@@ -1,16 +1,12 @@
 import { Router,Request,Response } from "express";
-import { console } from "inspector";
+import { getUsers } from "../services/userService";
 
 const userRouter = Router();
 
-let users = [
-    {id :1, userName : 'ruwanga'},
-    {id:2, userName : 'dinusha' }
-]
-
-userRouter.get("/",(req:Request,res:Response)=>{
+userRouter.get("/",async (req:Request,res:Response)=>{
     try {
-        res.send(users);
+        const users = await getUsers();
+        res.status(200).send(users);
     } catch (error) {
         
     }
