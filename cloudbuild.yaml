@@ -7,23 +7,21 @@ steps:
 
   - name: 'gcr.io/cloud-builders/gcloud'
     args: ['container', 'clusters', 'get-credentials', 'cluster-1', '--zone', 'us-central1-a', '--project', 'myfirstproject-da984']
+    volumes:
+      - name: 'gcloud-config'
+        path: '/root/.kube'
 
-  - name: 'gcr.io/cloud-builders/kubectl'
-    env: 
-      - 'CLOUDSDK_CORE_PROJECT=myfirstproject-da984'
-      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
-    args: ['apply', '-f', 'k8s/deployment.yaml']
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['kubectl','apply','-f','k8s']
+    volumes:
+      - name: 'gcloud-config'
+        path: '/root/.kube'
 
-  - name: 'gcr.io/cloud-builders/kubectl'
-    env: 
-      - 'CLOUDSDK_CORE_PROJECT=myfirstproject-da984'
-      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
-    args: ['apply', '-f', 'k8s/service.yaml']
-
-  - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['rollout', 'restart', 'deployment/project001-deployment']
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['kubectl','rollout','restart','deployment/project001-deployment']   
+    volumes:
+      - name: 'gcloud-config'
+        path: '/root/.kube'
 
 images:
   - 'gcr.io/myfirstproject-da984/project001:latest'
