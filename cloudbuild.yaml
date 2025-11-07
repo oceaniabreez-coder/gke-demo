@@ -9,10 +9,16 @@ steps:
     args: ['container', 'clusters', 'get-credentials', 'cluster-1', '--zone', 'us-central1-a', '--project', 'myfirstproject-da984']
 
   - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['apply', '-f', 'k8s']
     env: 
       - 'CLOUDSDK_COMPUTE_REGION=us-central1-a'
       - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
+    args: ['apply', '-f', 'k8s/deployment.yaml']
+
+  - name: 'gcr.io/cloud-builders/kubectl'
+    env: 
+      - 'CLOUDSDK_COMPUTE_REGION=us-central1-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
+    args: ['apply', '-f', 'k8s/service.yaml']
 
   - name: 'gcr.io/cloud-builders/kubectl'
     args: ['rollout', 'restart', 'deployment/project001-deployment']
