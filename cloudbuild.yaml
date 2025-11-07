@@ -1,0 +1,21 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/myfirstproject-da984/project001:latest', '.']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/myfirstproject-da984/project001:latest']
+
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['container', 'clusters', 'get-credentials', 'cluster-1', '--zone', 'us-central1-a', '--project', 'myfirstproject-da984']
+
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', 'k8s']
+    env: 
+      - 'CLOUDSDK_COMPUTE_REGION=us-central1-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
+
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['rollout', 'restart', 'deployment/project001-deployment']
+
+images:
+  - 'gcr.io/myfirstproject-da984/project001:latest'

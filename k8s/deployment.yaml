@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project001-deployment
+  labels:
+    app: project001
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: project001
+  template:
+    metadata:
+      labels: 
+        app: project001
+    spec:
+      containers:
+      - name: project001
+        image: gcr.io/myfirstproject-da984/project001:latest
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        env:
+        - name: NODE_ENV
+          value: "production"
