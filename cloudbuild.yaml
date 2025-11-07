@@ -10,13 +10,15 @@ steps:
 
   - name: 'gcr.io/cloud-builders/kubectl'
     env: 
-      - 'CLOUDSDK_COMPUTE_REGION=us-central1-a'
+      - 'CLOUDSDK_CORE_PROJECT=myfirstproject-da984'
+      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
       - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
     args: ['apply', '-f', 'k8s/deployment.yaml']
 
   - name: 'gcr.io/cloud-builders/kubectl'
     env: 
-      - 'CLOUDSDK_COMPUTE_REGION=us-central1-a'
+      - 'CLOUDSDK_CORE_PROJECT=myfirstproject-da984'
+      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
       - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
     args: ['apply', '-f', 'k8s/service.yaml']
 
