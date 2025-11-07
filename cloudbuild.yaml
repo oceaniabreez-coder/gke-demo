@@ -12,13 +12,15 @@ steps:
         path: '/root/.kube'
 
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['kubectl','apply','-f','k8s']
+    entrypoint: 'kubectl'
+    args: ['apply','-f','k8s']
     volumes:
       - name: 'gcloud-config'
         path: '/root/.kube'
 
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['kubectl','rollout','restart','deployment/project001-deployment']   
+    entrypoint: 'kubectl'
+    args: ['rollout','restart','deployment/project001-deployment']   
     volumes:
       - name: 'gcloud-config'
         path: '/root/.kube'
