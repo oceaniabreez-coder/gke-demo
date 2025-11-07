@@ -1,8 +1,9 @@
 import express,{Request,Response} from 'express'
 import userRouter from './modules/rotues/userRoutes';
+import cors from "cors";
 
 const app = express();
-
+app.use(cors({origin:true}))
 app.use(express.json());
 app.use("/api/users",userRouter);
 
